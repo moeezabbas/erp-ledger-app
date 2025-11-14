@@ -1,6 +1,7 @@
 {
-  "name": "ledger-erp-system",
+  "name": "erp-ledger-app",
   "version": "1.0.0",
+  "description": "ERP Ledger System with Google Sheets Sync",
   "type": "module",
   "scripts": {
     "dev": "next dev",
@@ -29,5 +30,8 @@
     "eslint": "^8",
     "eslint-config-next": "14.0.0",
     "typescript": "^5"
-  }
+  },
+  "keywords": ["erp", "ledger", "accounting", "google-sheets"],
+  "author": "Your Name",
+  "license": "MIT"
 }
