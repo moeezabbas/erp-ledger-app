@@ -20,7 +20,7 @@ export const LedgerProvider = ({ children }) => {
   const [selectedCustomer, setSelectedCustomer] = useState(null)
   const [transactions, setTransactions] = useState([])
 
-  const API_URL = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL
+  const API_URL = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbz9GtaAeAITIza9WKnu5iit8u5CIo-pXuuyH9JZ6v6abBBogUFNKj3Tj2g-QSYnqAhHlg/exec'
 
   // Fetch all customers
   const fetchCustomers = async () => {
@@ -35,6 +35,7 @@ export const LedgerProvider = ({ children }) => {
         toast.error('Failed to fetch customers')
       }
     } catch (error) {
+      console.error('Error fetching customers:', error)
       toast.error('Error fetching customers')
     } finally {
       setLoading(false)
@@ -95,7 +96,11 @@ export const LedgerProvider = ({ children }) => {
   // Create new transaction
   const createTransaction = async (transactionData) => {
     try {
-      const params = new URLSearchParams(transactionData)
+      const params = new URLSearchParams()
+      Object.keys(transactionData).forEach(key => {
+        params.append(key, transactionData[key])
+      })
+
       const response = await fetch(`${API_URL}?method=createTransaction&${params}`)
       const data = await response.json()
       
@@ -122,7 +127,11 @@ export const LedgerProvider = ({ children }) => {
   // Create new customer
   const createCustomer = async (customerData) => {
     try {
-      const params = new URLSearchParams(customerData)
+      const params = new URLSearchParams()
+      Object.keys(customerData).forEach(key => {
+        params.append(key, customerData[key])
+      })
+
       const response = await fetch(`${API_URL}?method=createCustomer&${params}`)
       const data = await response.json()
       
@@ -180,19 +189,11 @@ export const LedgerProvider = ({ children }) => {
     }
   }
 
-  // Auto-refresh every 30 seconds
+  // Initialize data
   useEffect(() => {
     fetchCustomers()
     fetchBalanceSheet()
     fetchSummary()
-
-    const interval = setInterval(() => {
-      fetchCustomers()
-      fetchBalanceSheet()
-      fetchSummary()
-    }, 30000)
-
-    return () => clearInterval(interval)
   }, [])
 
   const value = {
