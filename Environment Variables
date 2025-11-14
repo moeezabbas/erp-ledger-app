@@ -1,0 +1,3 @@
+# .env.local
+GOOGLE_SCRIPT_URL=https://script.google.com/macros/s/AKfycbz9GtaAeAITIza9WKnu5iit8u5CIo-pXuuyH9JZ6v6abBBogUFNKj3Tj2g-QSYnqAhHlg/exec
+NEXT_PUBLIC_APP_URL=http://localhost:3000
