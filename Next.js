@@ -1,12 +1,11 @@
-// next.config.js
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  env: {
+    GOOGLE_SCRIPT_URL: process.env.GOOGLE_SCRIPT_URL,
+  },
   experimental: {
     appDir: true,
   },
-  env: {
-    GOOGLE_SCRIPT_URL: process.env.GOOGLE_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbz9GtaAeAITIza9WKnu5iit8u5CIo-pXuuyH9JZ6v6abBBogUFNKj3Tj2g-QSYnqAhHlg/exec'
-  }
 }
 
 module.exports = nextConfig
